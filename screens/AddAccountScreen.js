@@ -6,43 +6,68 @@ import {
   StyleSheet,
   View
 } from 'react-native';
-import { Button, Text } from 'native-base';
+import { Container, Header, Content, Form, Item, Icon, Button, Picker, Text, Label, Input } from 'native-base';
 import HeaderBarIcon from '../components/HeaderBarIcon';
 import Colors from '../constants/Colors';
+import PickAccountScreen from './PickAccountScreen';
 import { MaterialIcons } from '@expo/vector-icons';
 
-export default function AccountsScreen(props) {
+export default class AddAccountScreen extends React.Component {
 
+	constructor(props) {
+		super(props);
+		this.state = {
+			debtType: undefined,
+			aprRequired: false
+		};
+	}
+	onDebtTypeChange(value: string) {
+		this.setState({
+			debtType: value
+		});
+	}
+
+	debtTypeExplanation() {
+		if (this.state.debtType != undefined && this.state.debtType != '') {
+			if (this.state.debtType == 'credit' || this.state.debtType == 'payday' || this.state.debtType == 'unsecured') {
+				this.state.aprRequired = true;
+				return <Text note>This debt type is usually a variable rate and most dangerous to keep for long.</Text>
+			} else {
+				this.state.aprRequired = false;
+				return <Text note>This debt type is a fixed rate and the apr is built into the monthly payment.</Text>
+			}
+		}
+	}
+
+	render() {
 		return (
 			<View style={styles.container}>
-				<ScrollView
-					style={styles.container}
-					contentContainerStyle={styles.contentContainer}>
-
-				</ScrollView>
+				<PickAccountScreen />
 			</View>
 		);
-
+	}
 }
 
-AccountsScreen.navigationOptions = ({ navigation }) => {
+AddAccountScreen.navigationOptions = ({ navigation }) => {
 	return {
-		title: 'Accounts',
+		title: 'Add Account',
 		headerStyle: {
 			backgroundColor: Colors.headerBackgroundColor,
 		},
 		headerTintColor: Colors.headerTintColor,
-		headerRight: (
-			<View style={styles.headerContainer}>
-			<Button transparent rounded onPress={() => navigation.navigate('Home')}>
+		headerLeft: (
+			<Button transparent rounded onPress={() => navigation.navigate('Accounts')}>
 				<MaterialIcons
-					name='add-circle' size={40}
+					name='keyboard-arrow-left' size={40}
 					style={{ marginRight: 10 }}
 					color={Colors.headerTintColor}/>
 			</Button>
-      <HeaderBarIcon
-      				name='dashboard'
-      			/>
+		),
+		headerRight: (
+			<View style={styles.headerContainer}>
+      	<HeaderBarIcon
+					name='credit-card'
+				/>
       </View>
 		)
   };
@@ -60,6 +85,8 @@ const styles = StyleSheet.create({
   	flexDirection: 'row',
   },
   contentContainer: {
-    paddingTop: 30,
+    paddingTop: 10,
+    marginLeft: 14,
+    marginRight: 14
   },
 });

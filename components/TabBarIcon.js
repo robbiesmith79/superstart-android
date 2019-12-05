@@ -3,13 +3,13 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 import Colors from '../constants/Colors';
 
-export default function HeaderBarIcon(props) {
+export default function TabBarIcon(props) {
   return (
     <MaterialIcons
       name={props.name}
-      size={40}
-      style={{ marginRight: 10 }}
-      color={Colors.headerTintColor}
+      size={26}
+      style={{ marginBottom: -3 }}
+      color={props.focused ? Colors.tabIconSelected : Colors.tabIconDefault}
     />
   );
 }

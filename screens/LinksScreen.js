@@ -1,10 +1,8 @@
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
-import HeaderBarIcon from '../components/HeaderBarIcon';
-import Colors from '../constants/Colors';
 
-export default function PlanScreen() {
+export default function LinksScreen() {
   return (
     <ScrollView style={styles.container}>
       {/**
@@ -16,19 +14,8 @@ export default function PlanScreen() {
   );
 }
 
-PlanScreen.navigationOptions = ({ navigation }) => {
-	return {
-		title: 'Plan',
-		headerStyle: {
-			backgroundColor: Colors.headerBackgroundColor,
-		},
-		headerTintColor: Colors.headerTintColor,
-		headerRight: (
-			<HeaderBarIcon
-				name='trending-down'
-			/>
-		)
-  };
+LinksScreen.navigationOptions = {
+  title: 'Links',
 };
 
 const styles = StyleSheet.create({
